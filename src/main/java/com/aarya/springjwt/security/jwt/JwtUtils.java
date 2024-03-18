@@ -14,6 +14,7 @@ import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -50,6 +51,11 @@ public class JwtUtils {
     }*/
 
     public String generateJwtToken(UserDetailsImpl userPrincipal) {
+        /*var map = new HashMap<String, Object>();
+        map.put("role", userPrincipal.getAuthorities());
+        map.put("username", userPrincipal.getUsername());
+        map.put("id", userPrincipal.getId());
+        map.put("email", userPrincipal.getEmail());*/
         return generateTokenFromUsername(userPrincipal.getUsername());
     }
 
@@ -58,12 +64,18 @@ public class JwtUtils {
     }*/
 
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build()
-                .parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     public String generateTokenFromUsername(String username) {
-        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();

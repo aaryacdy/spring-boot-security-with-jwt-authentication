@@ -5,7 +5,6 @@ import com.aarya.springjwt.models.RefreshToken;
 import com.aarya.springjwt.repository.RefreshTokenRepository;
 import com.aarya.springjwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
